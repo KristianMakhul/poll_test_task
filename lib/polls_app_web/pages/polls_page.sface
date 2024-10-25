@@ -29,9 +29,9 @@
           </div>
           <div class="p-4 border-t border-gray-400 flex justify-end">
             {#if @current_user && @current_user.username == author_name}
-              <Button on_click="open_delete_modal" variant="outline" value={poll_id}>Delete {poll_name} Poll</Button>
+              <Button on_click="open_delete_modal" variant="outline" value={poll_id}>Delete Poll</Button>
             {#else}
-              <Button on_click="open_delete_modal" variant="outline" value={poll_id} disabled>Delete {poll_name} Poll</Button>
+              <Button on_click="open_delete_modal" variant="outline" value={poll_id} disabled>Delete Poll</Button>
             {/if}
           </div>
         </div>
