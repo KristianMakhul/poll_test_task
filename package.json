@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "scroll-into-view-if-needed": "^3.1.0",
+    "smooth-scroll-into-view-if-needed": "^2.0.2"
+  }
+}
