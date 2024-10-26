@@ -15,6 +15,7 @@ You can visit the deployed version of the application at [Polls App Deployment](
 - Docker and Docker Compose installed on your machine.
 
 **Running the Application**
+
 Clone the Repository:
 ```
 git clone https://github.com/KristianMakhul/poll_test_task.git
