@@ -1,11 +1,9 @@
 defmodule PollsAppWeb.VotesPage do
   use PollsAppWeb, :surface_live_view
 
-  alias PollsApp.Polls
-  alias PollsApp.Votes
-  alias Moon.Design.Button
+  alias PollsApp.{Polls, Votes}
+  alias Moon.Design.{Button, Progress}
   alias Moon.Icon
-  alias Moon.Design.Progress
 
   on_mount {PollsAppWeb.UserAuth, :mount_current_user}
   on_mount {PollsAppWeb.UserAuth, :ensure_authenticated}

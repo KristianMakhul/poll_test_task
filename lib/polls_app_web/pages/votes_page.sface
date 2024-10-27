@@ -1,6 +1,6 @@
-<div class="flex justify-center w-full px-8">
-  <div class="bg-gray-50 p-6 flex flex-col justify-center items-center w-full">
-    <div class="w-full bg-white rounded-lg shadow border border-grey-400 p-8">
+<div class="flex justify-center w-full" style="padding: 0 7rem">
+  <div class="bg-gray-50 p-6 flex flex-col justify-center items-center w-full" id="votes_wrapper">
+    <div class="w-full bg-white rounded-lg shadow border border-grey-400 p-8" id="votes_box">
       <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">#{@poll.id} {@poll.name}</h2>
       <h2 class="text-md text-center text-gray-800 mb-6">Click on the option you'd like to vote for</h2>
       <div class="grid grid-cols-1 gap-4">
@@ -37,8 +37,8 @@
     </div>
   </div>
 
-  <div class="bg-gray-50 px-6 flex flex-col justify-center items-center w-full">
-    <div class="max-w-2xl w-full bg-white rounded-lg shadow border border-grey-400 p-8">
+  <div class="bg-gray-50 px-6 flex flex-col justify-center items-center w-full" id="votes_wrapper">
+    <div class="max-w-2xl w-full bg-white rounded-lg shadow border border-grey-400 p-8" id="votes_box">
       <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Result of Poll</h2>
       <div class="grid grid-cols-1 gap-4">
         {#for {option, votes_count, percentage} <- @votes_ranking}
