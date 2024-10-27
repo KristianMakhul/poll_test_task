@@ -27,3 +27,4 @@ mix.lock
 *.beam
 .formatter.exs
 .github
+**/static/assets
