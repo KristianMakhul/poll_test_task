@@ -59,7 +59,7 @@ mix assets.build
 ```
 **Set up the database:**
 
-`docker-compose up -d`
+`sudo docker-compose up -d`
 
 **Run database migrations and seeds:**
 
