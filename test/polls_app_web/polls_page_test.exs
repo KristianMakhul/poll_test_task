@@ -64,7 +64,7 @@ defmodule PollsAppWeb.PollsPageTest do
   test "open delete poll modal", %{conn: conn, poll: poll} do
     {:ok, view, _html} = live(conn, "/polls")
 
-    view |> element("button", "Delete #{poll.name} Poll") |> render_click()
+    view |> element("button", "Delete Poll") |> render_click()
     assert render(view) =~ "Are you sure you want to delete role: #{poll.name} ?"
   end
 end
