@@ -38,7 +38,8 @@ Only the creator of a poll has the authority to delete it, ensuring that users h
 ### <h2>Installing / Getting started</h2>
 **Prerequisites**
 
-- Docker and Docker Compose installed on your machine.
+- **Docker** and **Docker Compose** installed on your machine.
+- **Elixir** and **Erlang** installed with versions compatible with this project.
 
 **Running the Application**
 
@@ -59,13 +60,15 @@ mix assets.build
 ```
 **Set up the database:**
 
-`sudo docker-compose up -d`
+Use `docker-compose up -d` to start the database container in the background. 
+(Note: `sudo` may be required on Linux if your user isn’t in the docker group.)
 
 **Run database migrations and seeds:**
 
 `mix ecto.reset`
 
 **Start the Phoenix server:**
+
 `mix phx.server`
 
 Your application should now be running at [localhost:4000]( http://localhost:4000)
