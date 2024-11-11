@@ -33,7 +33,7 @@ defmodule PollsAppWeb.VotesPageTest do
     {:ok, view, _html} = live(conn, "/polls/#{poll.id}")
 
     view
-    |> element("button[id=vote_option]", "Option A")
+    |> element("button", "Option A")
     |> render_click()
 
     assert render(view) =~ "You voted for: Option A"
@@ -43,13 +43,13 @@ defmodule PollsAppWeb.VotesPageTest do
     {:ok, view, _html} = live(conn, "/polls/#{poll.id}")
 
     view
-    |> element("button[id=vote_option]", "Option A")
+    |> element("button", "Option A")
     |> render_click()
 
     refute render(view) =~ "You have already voted in this poll."
 
     view
-    |> element("button[id=vote_option]", "Option B")
+    |> element("button", "Option B")
     |> render_click()
 
     assert render(view) =~ "You have already voted in this poll."
@@ -61,7 +61,7 @@ defmodule PollsAppWeb.VotesPageTest do
     refute render(view) =~ "You voted for: Option A"
 
     view
-    |> element("button[id=vote_option]", "Option A")
+    |> element("button", "Option A")
     |> render_click()
 
     assert render(view) =~ "Result of Poll"
@@ -82,7 +82,7 @@ defmodule PollsAppWeb.VotesPageTest do
     {:ok, view, _html} = live(conn, "/polls/#{poll.id}")
 
     view
-    |> element("button[id=vote_option]", "Option A")
+    |> element("button", "Option A")
     |> render_click()
 
     refute render(view) =~ "You didn&#39;t vote yet"
@@ -106,7 +106,7 @@ defmodule PollsAppWeb.VotesPageTest do
     assert has_element?(view, "button[disabled=\"disabled\"]", "Retract Vote")
 
     view
-    |> element("button[id=vote_option]", "Option A")
+    |> element("button", "Option A")
     |> render_click()
 
     refute has_element?(view, "button[disabled=\"disabled\"]", "Retract Vote")

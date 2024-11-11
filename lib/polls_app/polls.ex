@@ -22,18 +22,21 @@ defmodule PollsApp.Polls do
       iex> PollsApp.Polls.create_poll(attrs)
       {:ok, %Poll{name: "Best Food", ...}}
   """
-  def create_poll(attrs) do
-    existing_poll = Repo.get_by(Poll, name: attrs["name"])
+def create_poll(attrs) do
+  unique_options = Enum.uniq(attrs["options"] || [])
 
-    if existing_poll do
-      {:error,
-       Ecto.Changeset.add_error(%Ecto.Changeset{}, :name, "Poll with this name already exists.")}
-    else
-      %Poll{}
-      |> Poll.changeset(attrs)
-      |> Repo.insert()
-    end
+  with true <- length(unique_options) == length(attrs["options"] || []),
+       nil <- Repo.get_by(Poll, name: attrs["name"]) do
+    %Poll{}
+    |> Poll.changeset(Map.put(attrs, "options", unique_options))
+    |> Repo.insert()
+  else
+    false ->
+      {:error, Ecto.Changeset.add_error(%Ecto.Changeset{}, :options, "Options must be unique.")}
+    _existing_poll ->
+      {:error, Ecto.Changeset.add_error(%Ecto.Changeset{}, :name, "Poll with this name already exists.")}
   end
+end
 
   @doc """
   Retrieves a poll by its ID and preloads associated votes.

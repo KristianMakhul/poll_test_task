@@ -16,19 +16,17 @@
       <div class="flex items-center gap-4">
         <h1 class="text-lg font-bold pl-8">Polls App</h1>
       </div>
-      <div id="my_div">
+      <div>
         <.link navigate={~p"/"}>
           <button
-            id="menu_item"
-            class="bg-white rounded-lg text-black pr-4 pl-4 pt-2 pb-2 text-lg"
+            class="bg-white rounded-lg text-black pr-4 pl-4 pt-2 pb-2 text-lg hover:bg-black hover:text-white"
           >
             Home Page
           </button>
         </.link>
         <.link navigate={~p"/polls"}>
           <button
-            id="menu_item"
-            class="bg-white rounded-lg text-black pr-4 pl-4 pt-2 pb-2 text-lg"
+            class="bg-white rounded-lg text-black pr-4 pl-4 pt-2 pb-2 text-lg hover:bg-black hover:text-white"
           >
             Polls
           </button>
@@ -36,7 +34,7 @@
       </div>
       <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
         <%= if @current_user do %>
-          <li class="text-[1rem] leading-6 text-zinc-900" id="li_header">
+          <li class="text-[1rem] leading-6 bg-black px-2 py-1 rounded-lg text-white">
             <%= @current_user.username %>
           </li>
           <li>

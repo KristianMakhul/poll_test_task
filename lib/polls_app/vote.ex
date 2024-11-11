@@ -9,11 +9,10 @@ defmodule PollsApp.Vote do
 
     timestamps()
   end
-
   def changeset(vote, attrs) do
     vote
     |> cast(attrs, [:user_id, :poll_id, :option])
     |> validate_required([:user_id, :poll_id, :option])
-    |> unique_constraint(:poll_id, name: :unique_user_poll_vote)
+    |> unique_constraint(:poll_id, name: :votes_user_id_poll_id_index)
   end
 end

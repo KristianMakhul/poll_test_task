@@ -25,6 +25,99 @@ defmodule PollsAppWeb.PollsPage do
      )}
   end
 
+  def render(assigns) do
+    ~F"""
+    <div class="min-h-screen p-6">
+      <div class=" mx-auto bg-white rounded-lg p-8">
+        <div class="flex justify-center items-center">
+          <h2 class="text-2xl font-bold text-center mb-6">Select a Poll</h2>
+          <span class="text-2xl font-bold text-center mb-6 ml-4">or</span>
+          <Button class="bg-popo hover:bg-neutral-700 ml-4 mb-6" on_click="open_create_modal">Create New Poll</Button>
+        </div>
+        <div class="flex flex-col justify-center gap-6">
+          {#for {poll_id, poll_name, author_name} <- Enum.reverse(@all_polls)}
+            <div class="flex flex-col w-full bg-white border border-gray-400 rounded-lg shadow">
+              <.link navigate={~p"/polls/#{poll_id}"}>
+                <div class="p-6 flex flex-col justify-between">
+                  <div>
+                    <h3 class="text-xl font-semibold">{poll_name}</h3>
+                    <p class="mt-2 text-gray-600">Click to view and vote!</p>
+                  </div>
+                  <p class="text-gray-800 text-lg font-medium mt-4">Author: {author_name}</p>
+                </div>
+              </.link>
+              <div class="p-4 border-t border-gray-400">
+                <h4 class="text-lg font-semibold">Votes Distribution:</h4>
+                <ul class="mt-2 space-y-1">
+                  {#for {option_name, votes_count, percentage} <- Map.get(@votes_distribution, poll_id, [])}
+                    <li>
+                      <p class="text-gray-700">{option_name}: {votes_count} votes ({percentage |> Float.round(2) |> to_string()}%)</p>
+                    </li>
+                  {/for}
+                </ul>
+              </div>
+              <div class="p-4 border-t border-gray-400 flex justify-end">
+                {#if @current_user && @current_user.username == author_name}
+                  <Button on_click="open_delete_modal" variant="outline" value={poll_id}>Delete Poll</Button>
+                {#else}
+                  <Button on_click="open_delete_modal" variant="outline" value={poll_id} disabled>Delete Poll</Button>
+                {/if}
+              </div>
+            </div>
+          {/for}
+        </div>
+      </div>
+    </div>
+
+    <Modal id="create_poll_modal" is_open={@poll_modal_open}>
+      <Modal.Backdrop />
+      <Modal.Panel>
+        <div class="p-4  border-beerus">
+          <h3 class="text-moon-18 text-center text-bulma font-medium border-b-2 pb-4">
+            Create new Poll
+          </h3>
+          <br>
+          <div class="text-left border-b-2 pb-4">
+            <Form for={@form} change="validate" submit="save">
+              <Field field={:name} class="p-4" label="Poll name">
+                <Input placeholder="Poll name" />
+              </Field>
+              <Field field={:options} class="p-4" label="Poll options (comma separated)">
+                <Input placeholder="Enter options separated by commas" />
+              </Field>
+              <div class="p-4 border-beerus flex justify-end">
+                <Button on_click="close_create_modal" variant="outline">Discard</Button>
+                <Button type="submit" class="bg-popo hover:bg-zeno ml-4">Create</Button>
+              </div>
+            </Form>
+          </div>
+        </div>
+      </Modal.Panel>
+    </Modal>
+
+    <Modal id="delete_poll_modal" is_open={@poll_delete_open} :if={@poll_delete_open}>
+      <Modal.Backdrop />
+      <Modal.Panel>
+        <div class="p-4  border-beerus">
+          <h3 class="text-moon-18 text-center text-bulma font-medium border-b-2 pb-4">
+            Are you sure you want to delete role: {@poll.name} ?
+          </h3>
+          <br>
+          <div class="text-left border-b-2 pb-4">
+            id: {@poll.id}
+            <br>
+            Poll name: {@poll.name}
+          </div>
+        </div>
+        <div class="p-4 border-beerus flex justify-end">
+          <Button on_click="close_delete_modal" variant="outline">Discard</Button>
+          <Button on_click="confirm_delete_modal" value={@poll.id} class="bg-popo hover:bg-zeno ml-4">Confirm</Button>
+        </div>
+      </Modal.Panel>
+    </Modal>
+    """
+  end
+
   def handle_info(:clear_flash, socket) do
     {:noreply, clear_flash(socket)}
   end
@@ -35,12 +128,17 @@ defmodule PollsAppWeb.PollsPage do
 
   def handle_info({:new_poll, _new_poll}, socket) do
     updated_polls = Polls.list_all_polls_with_authors()
-    {:noreply, assign(socket, all_polls: updated_polls, votes_distribution: Polls.polls_votes_distribution())}
+
+    {:noreply,
+     assign(socket,
+       all_polls: updated_polls,
+       votes_distribution: Polls.polls_votes_distribution()
+     )}
   end
 
   def handle_event("open_create_modal", _, socket) do
     Modal.open("create_poll_modal")
-    {:noreply,assign(socket, poll_modal_open: true)}
+    {:noreply, assign(socket, poll_modal_open: true)}
   end
 
   def handle_event("close_create_modal", _, socket) do
@@ -50,7 +148,7 @@ defmodule PollsAppWeb.PollsPage do
 
   def handle_event("open_delete_modal", %{"value" => id}, socket) do
     Modal.open("delete_poll_modal")
-    {:noreply,assign(socket,poll_delete_open: true, poll: Polls.get_poll!(id))}
+    {:noreply, assign(socket, poll_delete_open: true, poll: Polls.get_poll!(id))}
   end
 
   def handle_event("close_delete_modal", _, socket) do
@@ -111,7 +209,7 @@ defmodule PollsAppWeb.PollsPage do
              form: to_form(Polls.poll_changeset()),
              poll_modal_open: false
            )
-           |> put_flash(:error, "Post with same name already exists")}
+           |> put_flash(:error, "Post with same name already exists or you have duplicated options")}
       end
     end
   end
@@ -130,7 +228,9 @@ defmodule PollsAppWeb.PollsPage do
        form: to_form(Polls.poll_changeset()),
        poll_delete_open: false,
        all_polls: Polls.list_all_polls_with_authors()
-     ) |> put_flash(:info, "Poll was deleted")  |> push_redirect(to: "/polls")}
+     )
+     |> put_flash(:info, "Poll was deleted")
+     |> push_redirect(to: "/polls")}
   end
 
   defp parse_options_input(nil), do: []
