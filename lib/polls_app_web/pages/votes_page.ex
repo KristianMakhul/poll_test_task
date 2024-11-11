@@ -33,7 +33,7 @@ defmodule PollsAppWeb.VotesPage do
     ~F"""
     <div class="flex w-full px-28">
       <div class="flex flex-col justify-start items-center w-full">
-        <div class="w-full bg-white rounded-lg shadow border p-8">
+        <div class="w-full bg-white rounded-lg shadow border p-8 h-full">
           <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">#{@poll.id} {@poll.name}</h2>
           <h2 class="text-md text-center text-gray-800 mb-6">Click on the option you'd like to vote for</h2>
             {#for option <- @poll.options}
@@ -68,7 +68,7 @@ defmodule PollsAppWeb.VotesPage do
       </div>
       <div class="flex flex-col justify-start items-center w-full">
         <div
-          class="max-w-2xl w-full bg-white rounded-lg shadow border border-grey-400 p-8"
+          class="max-w-2xl w-full bg-white rounded-lg shadow border border-grey-400 p-8 h-full"
         >
           <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Result of Poll</h2>
           <div class="grid grid-cols-1 gap-4">
