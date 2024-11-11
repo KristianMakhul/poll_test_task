@@ -32,11 +32,10 @@ defmodule PollsAppWeb.VotesPage do
   def render(assigns) do
     ~F"""
     <div class="flex w-full px-28">
-      <div class="flex flex-col justify-start items-center w-full p-0">
+      <div class="flex flex-col justify-start items-center w-full">
         <div class="w-full bg-white rounded-lg shadow border p-8">
           <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">#{@poll.id} {@poll.name}</h2>
           <h2 class="text-md text-center text-gray-800 mb-6">Click on the option you'd like to vote for</h2>
-          <div>
             {#for option <- @poll.options}
               <div class="flex items-center mb-6">
                 <Button
@@ -52,7 +51,6 @@ defmodule PollsAppWeb.VotesPage do
                 />
               </div>
             {/for}
-          </div>
           <div class="mt-6 text-center">
             <p class="text-lg text-gray-700">
               <span class="text-grey-500">{@selected_option}</span>
@@ -68,8 +66,7 @@ defmodule PollsAppWeb.VotesPage do
           </div>
         </div>
       </div>
-
-      <div class="flex flex-col justify-start items-center w-full p-0">
+      <div class="flex flex-col justify-start items-center w-full">
         <div
           class="max-w-2xl w-full bg-white rounded-lg shadow border border-grey-400 p-8"
         >
