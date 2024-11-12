@@ -1,0 +1,58 @@
+<div class="flex w-full px-28">
+  <div class="flex w-full flex-col items-center justify-start">
+    <div class="h-full w-full rounded-lg border bg-white p-8 shadow">
+      <h2 class="mb-6 text-center text-2xl font-bold text-gray-800">#{@poll.id} {@poll.name}</h2>
+      <h2 class="text-md mb-6 text-center text-gray-800">Click on the option you'd like to vote for</h2>
+      {#for option <- @poll.options}
+        <div class="mb-6 flex items-center">
+          <Button
+            on_click="vote"
+            values={[option: option]}
+            class="w-full text-white font-bold py-3 px-4 rounded-lg bg-gray-400 hover:bg-gray-500"
+          >
+            {option}
+          </Button>
+          <Icon
+            name={"#{if @selected_option == "You voted for: #{option}", do: "generic_check_rounded", else: ""}"}
+            class="text-moon-48 text-roshi"
+          />
+        </div>
+      {/for}
+      <div class="mt-6 text-center">
+        <p class="text-lg text-gray-700">
+          <span class="text-grey-500">{@selected_option}</span>
+        </p>
+      </div>
+      <div class="border-beerus flex justify-between p-4 pt-8">
+        <Button variant="outline" on_click="exit_poll">Back to Polls</Button>
+        {#if @selected_option == "You didn't vote yet"}
+          <Button class="bg-popo hover:bg-neutral-700 ml-4" on_click="retract_vote" disabled="true">Retract Vote</Button>
+        {#else}
+          <Button class="bg-popo hover:bg-neutral-700 ml-4" on_click="retract_vote">Retract Vote</Button>
+        {/if}
+      </div>
+    </div>
+  </div>
+  <div class="flex w-full flex-col items-center justify-start">
+    <div class="border-grey-400 h-full w-full max-w-2xl rounded-lg border bg-white p-8 shadow">
+      <h2 class="mb-6 text-center text-2xl font-bold text-gray-800">Result of Poll</h2>
+      <div class="grid grid-cols-1 gap-4">
+        {#for {option, votes_count, percentage} <- @votes_ranking}
+          <div class="flex flex-col">
+            <Progress value={percentage} class="mt-16">
+              <Progress.Pin class="mt-4" />
+            </Progress>
+            <div class="ml-4 flex justify-center gap-5 text-gray-600">
+              <p class="mr-4 text-base font-medium">
+                {option}:
+              </p>
+              <p class="mr-4 text-base font-medium">
+                {votes_count} votes
+              </p>
+            </div>
+          </div>
+        {/for}
+      </div>
+    </div>
+  </div>
+</div>

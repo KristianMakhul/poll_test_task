@@ -14,27 +14,23 @@
   <body class="... theme-moon-light" dir="ltr">
     <div class="flex items-center justify-between border-b border-zinc-100 py-6 text-sm">
       <div class="flex items-center gap-4">
-        <h1 class="text-lg font-bold pl-8">Polls App</h1>
+        <h1 class="pl-8 text-lg font-bold">Polls App</h1>
       </div>
       <div>
         <.link navigate={~p"/"}>
-          <button
-            class="bg-white rounded-lg text-black pr-4 pl-4 pt-2 pb-2 text-lg hover:bg-black hover:text-white"
-          >
+          <button class="rounded-lg bg-white pt-2 pr-4 pb-2 pl-4 text-lg text-black hover:bg-black hover:text-white">
             Home Page
           </button>
         </.link>
         <.link navigate={~p"/polls"}>
-          <button
-            class="bg-white rounded-lg text-black pr-4 pl-4 pt-2 pb-2 text-lg hover:bg-black hover:text-white"
-          >
+          <button class="rounded-lg bg-white pt-2 pr-4 pb-2 pl-4 text-lg text-black hover:bg-black hover:text-white">
             Polls
           </button>
         </.link>
       </div>
-      <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
+      <ul class="relative z-10 flex items-center justify-end gap-4 px-4 sm:px-6 lg:px-8">
         <%= if @current_user do %>
-          <li class="text-base leading-6 bg-black px-2 py-1 rounded-lg text-white">
+          <li class="rounded-lg bg-black px-2 py-1 text-base leading-6 text-white">
             <%= @current_user.username %>
           </li>
           <li>

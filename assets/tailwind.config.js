@@ -5,6 +5,7 @@ tailwind_config.content = [
   "../lib/**/*.heex",
   "../lib/**/*.eex",
   "./js/**/*.js",
+  "../lib/**/pages/*.sface",
 
   "../deps/moon/lib/**/*.ex",
   "../deps/moon/lib/**/*.heex",

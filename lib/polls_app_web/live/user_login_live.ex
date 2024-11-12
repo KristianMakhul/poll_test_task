@@ -3,7 +3,7 @@ defmodule PollsAppWeb.UserLoginLive do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm shadow border border-grey-400 p-8 rounded-lg ">
+    <div class="border-grey-400 mx-auto max-w-sm rounded-lg border p-8 shadow ">
       <.header class="text-center">
         Log in to account
         <:subtitle>

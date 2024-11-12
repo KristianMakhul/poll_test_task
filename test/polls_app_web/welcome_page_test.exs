@@ -14,6 +14,7 @@ defmodule PollsAppWeb.WelcomePageTest do
   test "clicking the button navigates to existing polls", %{conn: conn} do
     {:ok, view, _html} = live(conn, "/")
 
-    assert {:error, {:live_redirect, %{to: "/polls", kind: :push}}} == view |> element("a") |> render_click()
+    assert {:error, {:live_redirect, %{to: "/polls", kind: :push}}} ==
+             view |> element("a") |> render_click()
   end
 end

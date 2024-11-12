@@ -3,12 +3,13 @@ defmodule PollsApp.Vote do
   import Ecto.Changeset
 
   schema "votes" do
-    belongs_to :user, PollsApp.Accounts.User
-    belongs_to :poll, PollsApp.Poll
-    field :option, :string
+    belongs_to(:user, PollsApp.Accounts.User)
+    belongs_to(:poll, PollsApp.Poll)
+    field(:option, :string)
 
     timestamps()
   end
+
   def changeset(vote, attrs) do
     vote
     |> cast(attrs, [:user_id, :poll_id, :option])

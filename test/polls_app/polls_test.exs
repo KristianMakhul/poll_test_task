@@ -10,7 +10,11 @@ defmodule PollsApp.PollsTest do
     end
 
     test "creates a poll", %{user: user} do
-      attrs = %{name: "Favorite language?", user_id: user.id, options: ["Elixir", "Python", "Ruby"]}
+      attrs = %{
+        name: "Favorite language?",
+        user_id: user.id,
+        options: ["Elixir", "Python", "Ruby"]
+      }
 
       assert {:ok, %Poll{} = poll} = Polls.seeds_poll(attrs)
       assert poll.name == "Favorite language?"
@@ -34,7 +38,6 @@ defmodule PollsApp.PollsTest do
       assert {poll_id, poll_name, poll_author} == {poll_id, "Favorite language?", "John"}
     end
 
-
     test "gets votes distribution for a poll", %{user: user} do
       poll_attrs = %{name: "Favorite drink?", user_id: user.id, options: ["Tea", "Coffee"]}
       {:ok, user2} = PollsApp.Accounts.register_user(%{username: "John1", password: "123"})
@@ -49,9 +52,9 @@ defmodule PollsApp.PollsTest do
       distribution = Polls.votes_distribution(poll.id)
 
       assert distribution == [
-        {"Tea", 2, 66.66666666666667},
-        {"Coffee", 1, 33.333333333333336}
-      ]
+               {"Tea", 2, 66.66666666666667},
+               {"Coffee", 1, 33.333333333333336}
+             ]
     end
 
     test "deletes a poll", %{user: user} do
@@ -63,7 +66,12 @@ defmodule PollsApp.PollsTest do
     end
 
     test "update existing poll", %{user: user} do
-      poll_attrs = %{name: "Update Me", user_id: user.id, options: ["Old Option 1", "Old Option 2"]}
+      poll_attrs = %{
+        name: "Update Me",
+        user_id: user.id,
+        options: ["Old Option 1", "Old Option 2"]
+      }
+
       {:ok, poll} = Polls.seeds_poll(poll_attrs)
 
       updated_attrs = %{name: "Updated Poll Name", options: ["New Option 1", "New Option 2"]}

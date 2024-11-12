@@ -9,18 +9,18 @@ defmodule PollsApp.Votes do
       iex> PollsApp.Votes.create_vote(attrs)
       {:ok,  %PollsApp.Vote{__meta__: #Ecto.Schema.Metadata<:loaded, "votes">, id: 17, user_id: 1, ...}
   """
-def create_vote(attrs) do
-  %Vote{}
-  |> Vote.changeset(attrs)
-  |> Repo.insert()
-  |> case do
-    {:ok, vote} ->
-      {:ok, vote}
+  def create_vote(attrs) do
+    %Vote{}
+    |> Vote.changeset(attrs)
+    |> Repo.insert()
+    |> case do
+      {:ok, vote} ->
+        {:ok, vote}
 
-    {:error, _changeset} ->
-      {:error, "An error occurred"}
+      {:error, _changeset} ->
+        {:error, "An error occurred"}
+    end
   end
-end
 
   @doc """
   Deletes a vote.
@@ -43,8 +43,9 @@ end
       "You voted for: Option A"
   """
   def get_user_vote_for_poll(user_id, poll_id) do
-    user = Repo.get!(User, user_id)
-    |> Repo.preload(:votes)
+    user =
+      Repo.get!(User, user_id)
+      |> Repo.preload(:votes)
 
     Enum.find(user.votes, fn vote -> vote.poll_id == poll_id end)
     |> case do
