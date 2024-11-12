@@ -8,8 +8,7 @@
       <%= assigns[:page_title] || "PollsApps" %>
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
-    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
-    </script>
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>
   </head>
   <body class="... theme-moon-light" dir="ltr">
     <div class="flex items-center justify-between border-b border-zinc-100 py-6 text-sm">
@@ -18,26 +17,26 @@
       </div>
       <div>
         <.link navigate={~p"/"}>
-          <button class="rounded-lg bg-white pt-2 pr-4 pb-2 pl-4 text-lg text-black hover:bg-black hover:text-white">
+          <button class="pt-2 pb-2 pl-4 pr-4 text-lg text-black bg-white rounded-lg hover:bg-black hover:text-white">
             Home Page
           </button>
         </.link>
         <.link navigate={~p"/polls"}>
-          <button class="rounded-lg bg-white pt-2 pr-4 pb-2 pl-4 text-lg text-black hover:bg-black hover:text-white">
+          <button class="pt-2 pb-2 pl-4 pr-4 text-lg text-black bg-white rounded-lg hover:bg-black hover:text-white">
             Polls
           </button>
         </.link>
       </div>
       <ul class="relative z-10 flex items-center justify-end gap-4 px-4 sm:px-6 lg:px-8">
         <%= if @current_user do %>
-          <li class="rounded-lg bg-black px-2 py-1 text-base leading-6 text-white">
+          <li class="px-2 py-1 text-base leading-6 text-white bg-black rounded-lg">
             <%= @current_user.username %>
           </li>
           <li>
             <.link
               href={~p"/users/log_out"}
               method="delete"
-              class="text-base leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+              class="text-base font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
             >
               Log out
             </.link>
@@ -46,7 +45,7 @@
           <li>
             <.link
               href={~p"/users/register"}
-              class="text-sm leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+              class="text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
             >
               Register
             </.link>
@@ -54,7 +53,7 @@
           <li>
             <.link
               href={~p"/users/log_in"}
-              class="text-sm leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+              class="text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
             >
               Log in
             </.link>

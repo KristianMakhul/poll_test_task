@@ -1,13 +1,13 @@
 <div class="min-h-screen p-6">
-  <div class="mx-auto rounded-lg bg-white p-8">
+  <div class="mx-auto p-8 bg-white rounded-lg">
     <div class="flex items-center justify-center">
-      <h2 class="mb-6 text-center text-2xl font-bold">Select a Poll</h2>
-      <span class="mb-6 ml-4 text-center text-2xl font-bold">or</span>
-      <Button class="bg-popo hover:bg-neutral-700 ml-4 mb-6" on_click="open_create_modal">Create New Poll</Button>
+      <h2 class="text-2xl font-bold text-center mb-6">Select a Poll</h2>
+      <span class="text-2xl font-bold text-center ml-4 mb-6">or</span>
+      <Button class="ml-4 mb-6 bg-popo hover:bg-neutral-700" on_click="open_create_modal">Create New Poll</Button>
     </div>
     <div class="flex flex-col justify-center gap-6">
       {#for {poll_id, poll_name, author_name} <- Enum.reverse(@all_polls)}
-        <div class="flex w-full flex-col rounded-lg border border-gray-400 bg-white shadow">
+        <div class="w-full p-4 bg-white rounded-lg border border-gray-400 shadow">
           <.link navigate={~p"/polls/#{poll_id}"}>
             <div class="flex flex-col justify-between p-6">
               <div>
@@ -17,7 +17,7 @@
               <p class="mt-4 text-lg font-medium text-gray-800">Author: {author_name}</p>
             </div>
           </.link>
-          <div class="border-t border-gray-400 p-4">
+          <div class="p-4 border-t border-gray-400">
             <h4 class="text-lg font-semibold">Votes Distribution:</h4>
             <ul class="mt-2 space-y-1">
               {#for {option_name, votes_count, percentage} <- Map.get(@votes_distribution, poll_id, [])}
@@ -27,7 +27,7 @@
               {/for}
             </ul>
           </div>
-          <div class="flex justify-end border-t border-gray-400 p-4">
+          <div class="flex justify-end p-4 border-t border-gray-400">
             {#if @current_user && @current_user.username == author_name}
               <Button on_click="open_delete_modal" variant="outline" value={poll_id}>Delete Poll</Button>
             {#else}
@@ -43,8 +43,8 @@
 <Modal id="create_poll_modal" is_open={@poll_modal_open}>
   <Modal.Backdrop />
   <Modal.Panel>
-    <div class="border-beerus p-4">
-      <h3 class="text-moon-18 text-bulma border-b-2 pb-4 text-center font-medium">
+    <div class="p-4 border-beerus">
+      <h3 class="text-moon-18 font-medium text-bulma border-b-2 text-center pb-4">
         Create new Poll
       </h3>
       <br>
@@ -56,9 +56,9 @@
           <Field field={:options} class="p-4" label="Poll options (comma separated)">
             <Input placeholder="Enter options separated by commas" />
           </Field>
-          <div class="border-beerus flex justify-end p-4">
+          <div class="flex justify-end p-4 border-beerus">
             <Button on_click="close_create_modal" variant="outline">Discard</Button>
-            <Button type="submit" class="bg-popo hover:bg-zeno ml-4">Create</Button>
+            <Button type="submit" class="ml-4 bg-popo hover:bg-zeno">Create</Button>
           </div>
         </Form>
       </div>
@@ -69,9 +69,9 @@
 <Modal id="delete_poll_modal" is_open={@poll_delete_open} :if={@poll_delete_open}>
   <Modal.Backdrop />
   <Modal.Panel>
-    <div class="border-beerus p-4">
-      <h3 class="text-moon-18 text-bulma border-b-2 pb-4 text-center font-medium">
-        Are you sure you want to delete role: {@poll.name} ?
+    <div class="p-4 border-beerus">
+      <h3 class="text-moon-18 font-medium text-bulma border-b-2 text-center pb-4">
+        Are you sure you want to delete role: {@poll.name}?
       </h3>
       <br>
       <div class="border-b-2 pb-4 text-left">
@@ -80,9 +80,9 @@
         Poll name: {@poll.name}
       </div>
     </div>
-    <div class="border-beerus flex justify-end p-4">
+    <div class="flex justify-end p-4 border-beerus">
       <Button on_click="close_delete_modal" variant="outline">Discard</Button>
-      <Button on_click="confirm_delete_modal" value={@poll.id} class="bg-popo hover:bg-zeno ml-4">Confirm</Button>
+      <Button on_click="confirm_delete_modal" value={@poll.id} class="ml-4 bg-popo hover:bg-zeno">Confirm</Button>
     </div>
   </Modal.Panel>
 </Modal>
