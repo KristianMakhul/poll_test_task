@@ -28,7 +28,7 @@ defmodule PollsAppWeb.PollsPage do
   def render(assigns) do
     ~F"""
     <div class="min-h-screen p-6">
-      <div class=" mx-auto bg-white rounded-lg p-8">
+      <div class="mx-auto bg-white rounded-lg p-8">
         <div class="flex justify-center items-center">
           <h2 class="text-2xl font-bold text-center mb-6">Select a Poll</h2>
           <span class="text-2xl font-bold text-center mb-6 ml-4">or</span>
@@ -72,7 +72,7 @@ defmodule PollsAppWeb.PollsPage do
     <Modal id="create_poll_modal" is_open={@poll_modal_open}>
       <Modal.Backdrop />
       <Modal.Panel>
-        <div class="p-4  border-beerus">
+        <div class="p-4 border-beerus">
           <h3 class="text-moon-18 text-center text-bulma font-medium border-b-2 pb-4">
             Create new Poll
           </h3>
