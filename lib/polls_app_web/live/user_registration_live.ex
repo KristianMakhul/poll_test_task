@@ -6,7 +6,7 @@ defmodule PollsAppWeb.UserRegistrationLive do
 
   def render(assigns) do
     ~H"""
-    <div class="border-grey-400 mx-auto max-w-sm rounded-lg border p-8 shadow ">
+    <div class="border-grey-400 mx-auto max-w-sm rounded-lg border p-8 font-oswald shadow">
       <.header class="text-center">
         Register for an account
         <:subtitle>

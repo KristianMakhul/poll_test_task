@@ -67,6 +67,6 @@ defmodule PollsAppWeb.PollsPageTest do
     {:ok, view, _html} = live(conn, "/polls")
 
     view |> element("button", "Delete Poll") |> render_click()
-    assert render(view) =~ "Are you sure you want to delete role: #{poll.name} ?"
+    assert render(view) =~ "Are you sure you want to delete role: #{poll.name}?"
   end
 end
