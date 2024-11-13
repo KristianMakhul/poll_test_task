@@ -1,6 +1,6 @@
-<div class="flex w-full px-28 font-oswald ">
+<div class="flex w-full flex-col lg:flex-row space-y-8 lg:space-y-0 px-8 md:px-28 font-oswald">
   <div class="flex w-full flex-col items-center justify-start">
-    <div class="w-full h-full p-8 bg-white border rounded-lg shadow">
+    <div class="w-full h-full p-4 md:p-8 bg-white border rounded-lg shadow">
       <h2 class="mb-6 text-2xl font-bold text-center text-gray-800">
         #{@poll.id} {@poll.name}
       </h2>
@@ -18,7 +18,7 @@
           </Button>
           <Icon
             name={"#{if @selected_option == "You voted for: #{option}", do: "generic_check_rounded", else: ""}"}
-            class="text-moon-48 text-roshi"
+            class="hidden sm:block text-moon-48 text-roshi"
           />
         </div>
       {/for}
