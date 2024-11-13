@@ -8,7 +8,7 @@ defmodule PollsAppWeb.WelcomePage do
 
   def render(assigns) do
     ~F"""
-    <div class="flex flex-col items-center justify-center">
+    <div class="flex flex-col items-center justify-center font-oswald">
       <div class="bg-white rounded-lg border border-grey-400  p-8 text-center">
         <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to the Polling Application!</h1>
         <p class="text-lg text-gray-600 mb-4">

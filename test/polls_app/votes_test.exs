@@ -33,7 +33,8 @@ defmodule PollsApp.VotesTest do
     assert {:ok, _deleted_vote} = Votes.delete_vote(vote)
 
     # Assert
-    assert Repo.get(Vote, vote.id) == nil  # Verify the vote is deleted
+    # Verify the vote is deleted
+    assert Repo.get(Vote, vote.id) == nil
   end
 
   test "get user vote for poll when user has voted", %{user: user, poll: poll} do
@@ -50,7 +51,8 @@ defmodule PollsApp.VotesTest do
 
   test "get user vote for poll when user has not voted", %{user: user, poll: poll} do
     # Act
-    vote_message = Votes.get_user_vote_for_poll(user.id, poll.id)  # User has not voted yet
+    # User has not voted yet
+    vote_message = Votes.get_user_vote_for_poll(user.id, poll.id)
 
     # Assert
     assert vote_message == "You didn't vote yet"

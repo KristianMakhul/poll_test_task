@@ -62,7 +62,8 @@ defmodule PollsApp.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.2"},
       {:moon, "~> 2.81"},
-      {:surface, "0.11.4"}
+      {:surface, "0.11.4"},
+      {:tailwind_formatter, "~> 0.4.0", only: [:dev, :test], runtime: false}
     ]
   end
 

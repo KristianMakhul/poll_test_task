@@ -13,6 +13,13 @@ defmodule PollsApp.Votes do
     %Vote{}
     |> Vote.changeset(attrs)
     |> Repo.insert()
+    |> case do
+      {:ok, vote} ->
+        {:ok, vote}
+
+      {:error, _changeset} ->
+        {:error, "An error occurred"}
+    end
   end
 
   @doc """
@@ -36,8 +43,9 @@ defmodule PollsApp.Votes do
       "You voted for: Option A"
   """
   def get_user_vote_for_poll(user_id, poll_id) do
-    user = Repo.get!(User, user_id)
-    |> Repo.preload(:votes)
+    user =
+      Repo.get!(User, user_id)
+      |> Repo.preload(:votes)
 
     Enum.find(user.votes, fn vote -> vote.poll_id == poll_id end)
     |> case do

@@ -4,16 +4,18 @@ defmodule PollsAppWeb.PollsPageTest do
   alias PollsApp.{Accounts, Polls}
 
   setup %{conn: conn} do
-    {:ok, user} = Accounts.register_user(%{
-      username: "test_user",
-      password: "password123"
-    })
+    {:ok, user} =
+      Accounts.register_user(%{
+        username: "test_user",
+        password: "password123"
+      })
 
-    {:ok, poll} = Polls.seeds_poll(%{
-      name: "Sample Poll",
-      user_id: user.id,
-      options: ["Option A", "Option B", "Option C"]
-    })
+    {:ok, poll} =
+      Polls.seeds_poll(%{
+        name: "Sample Poll",
+        user_id: user.id,
+        options: ["Option A", "Option B", "Option C"]
+      })
 
     conn = log_in_user(conn, user)
 

@@ -5,8 +5,8 @@ defmodule PollsAppWeb.PollsPage do
   alias Moon.Design.{Button, Modal, Form}
   alias Moon.Design.Form.{Field, Input}
 
-  on_mount {PollsAppWeb.UserAuth, :mount_current_user}
-  on_mount {PollsAppWeb.UserAuth, :ensure_authenticated}
+  on_mount({PollsAppWeb.UserAuth, :mount_current_user})
+  on_mount({PollsAppWeb.UserAuth, :ensure_authenticated})
 
   def mount(_params, _session, socket) do
     if connected?(socket) do
@@ -35,12 +35,17 @@ defmodule PollsAppWeb.PollsPage do
 
   def handle_info({:new_poll, _new_poll}, socket) do
     updated_polls = Polls.list_all_polls_with_authors()
-    {:noreply, assign(socket, all_polls: updated_polls, votes_distribution: Polls.polls_votes_distribution())}
+
+    {:noreply,
+     assign(socket,
+       all_polls: updated_polls,
+       votes_distribution: Polls.polls_votes_distribution()
+     )}
   end
 
   def handle_event("open_create_modal", _, socket) do
     Modal.open("create_poll_modal")
-    {:noreply,assign(socket, poll_modal_open: true)}
+    {:noreply, assign(socket, poll_modal_open: true)}
   end
 
   def handle_event("close_create_modal", _, socket) do
@@ -50,7 +55,7 @@ defmodule PollsAppWeb.PollsPage do
 
   def handle_event("open_delete_modal", %{"value" => id}, socket) do
     Modal.open("delete_poll_modal")
-    {:noreply,assign(socket,poll_delete_open: true, poll: Polls.get_poll!(id))}
+    {:noreply, assign(socket, poll_delete_open: true, poll: Polls.get_poll!(id))}
   end
 
   def handle_event("close_delete_modal", _, socket) do
@@ -111,7 +116,10 @@ defmodule PollsAppWeb.PollsPage do
              form: to_form(Polls.poll_changeset()),
              poll_modal_open: false
            )
-           |> put_flash(:error, "Post with same name already exists")}
+           |> put_flash(
+             :error,
+             "Post with same name already exists or you have duplicated options"
+           )}
       end
     end
   end
@@ -130,7 +138,9 @@ defmodule PollsAppWeb.PollsPage do
        form: to_form(Polls.poll_changeset()),
        poll_delete_open: false,
        all_polls: Polls.list_all_polls_with_authors()
-     ) |> put_flash(:info, "Poll was deleted")  |> push_redirect(to: "/polls")}
+     )
+     |> put_flash(:info, "Poll was deleted")
+     |> push_redirect(to: "/polls")}
   end
 
   defp parse_options_input(nil), do: []

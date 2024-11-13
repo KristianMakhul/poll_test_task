@@ -5,8 +5,8 @@ defmodule PollsAppWeb.VotesPage do
   alias Moon.Design.{Button, Progress}
   alias Moon.Icon
 
-  on_mount {PollsAppWeb.UserAuth, :mount_current_user}
-  on_mount {PollsAppWeb.UserAuth, :ensure_authenticated}
+  on_mount({PollsAppWeb.UserAuth, :mount_current_user})
+  on_mount({PollsAppWeb.UserAuth, :ensure_authenticated})
 
   def mount(params, _session, socket) do
     id = Map.get(params, "id")
@@ -41,26 +41,16 @@ defmodule PollsAppWeb.VotesPage do
     updated_polls = Polls.list_all_polls_with_authors()
 
     {:noreply,
-    assign(socket, all_polls: updated_polls)
-      |> push_redirect(to: "/polls")
-    }
+     assign(socket, all_polls: updated_polls)
+     |> push_redirect(to: "/polls")}
   end
 
   def handle_event("vote", %{"option" => option}, socket) do
     poll_id = socket.assigns.poll.id
     user_id = socket.assigns.current_user.id
 
-    existing_vote =
-      Votes.get_user_vote_for_poll(user_id, poll_id)
-
-    case existing_vote do
-      "You didn't vote yet" ->
-        Votes.create_vote(%{
-          poll_id: poll_id,
-          user_id: user_id,
-          option: option
-        })
-
+    case Votes.create_vote(%{poll_id: poll_id, user_id: user_id, option: option}) do
+      {:ok, _vote} ->
         Phoenix.PubSub.broadcast(PollsApp.PubSub, "vote", {:new_vote, ""})
 
         {:noreply,
@@ -69,7 +59,7 @@ defmodule PollsAppWeb.VotesPage do
            votes_ranking: Polls.votes_distribution(poll_id)
          )}
 
-      _ ->
+      {:error, _} ->
         socket = put_flash(socket, :error, "You have already voted in this poll.")
         {:noreply, socket}
     end

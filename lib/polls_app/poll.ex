@@ -3,11 +3,11 @@ defmodule PollsApp.Poll do
   import Ecto.Changeset
 
   schema "polls" do
-    field :name, :string
-    field :options, {:array, :string}
+    field(:name, :string)
+    field(:options, {:array, :string})
 
-    belongs_to :user, PollsApp.Accounts.User
-    has_many :votes, PollsApp.Vote
+    belongs_to(:user, PollsApp.Accounts.User)
+    has_many(:votes, PollsApp.Vote)
 
     timestamps()
   end

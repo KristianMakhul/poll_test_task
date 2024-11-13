@@ -1,15 +1,22 @@
-const tailwind_config = require("../deps/moon/assets/tailwind.config.js");
+module.exports = {
+  presets: [require("../deps/moon/assets/tailwind.config.js")],
+  content: [
+    "../lib/**/*.ex",
+    "../lib/**/*.heex",
+    "../lib/**/*.eex",
+    "./js/**/*.js",
+    "../lib/**/pages/*.sface",
 
-tailwind_config.content = [
-  "../lib/**/*.ex",
-  "../lib/**/*.heex",
-  "../lib/**/*.eex",
-  "./js/**/*.js",
-
-  "../deps/moon/lib/**/*.ex",
-  "../deps/moon/lib/**/*.heex",
-  "../deps/moon/lib/**/*.eex",
-  "../deps/moon/assets/js/**/*.js",
-];
-
-module.exports = tailwind_config;
+    "../deps/moon/lib/**/*.ex",
+    "../deps/moon/lib/**/*.heex",
+    "../deps/moon/lib/**/*.eex",
+    "../deps/moon/assets/js/**/*.js",
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        oswald: ["Oswald", "sans-serif"],
+      },
+    },
+  },
+};
