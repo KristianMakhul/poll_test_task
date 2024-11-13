@@ -13,13 +13,6 @@ defmodule PollsApp.Votes do
     %Vote{}
     |> Vote.changeset(attrs)
     |> Repo.insert()
-    |> case do
-      {:ok, vote} ->
-        {:ok, vote}
-
-      {:error, _changeset} ->
-        {:error, "An error occurred"}
-    end
   end
 
   @doc """
