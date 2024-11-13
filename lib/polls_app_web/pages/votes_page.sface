@@ -1,4 +1,4 @@
-<div class="flex w-full px-28">
+<div class="flex w-full px-28 font-oswald ">
   <div class="flex w-full flex-col items-center justify-start">
     <div class="w-full h-full p-8 bg-white border rounded-lg shadow">
       <h2 class="mb-6 text-2xl font-bold text-center text-gray-800">

@@ -5,12 +5,11 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-
 /*
   this is a default theme - used on surface.moon.io
   feel free to copy and modify it
 */
-@import '../../deps/moon/priv/static/themes/moon.css';
+@import "../../deps/moon/priv/static/themes/moon.css";
 
 /*
   Not really required. Only few classes for components
@@ -19,4 +18,5 @@
   also can import _components.css instead
   @import '../../deps/moon/assets/css/_components.css';
 */
-@import '../../deps/moon/assets/css/app.css';
+@import "../../deps/moon/assets/css/app.css";
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
